@@ -1,0 +1,190 @@
+:root {
+    --bg-color: #f0f0f0;
+    --text-color: #333;
+    --grid-border-color: #333;
+    --cell-border-color: #ccc;
+    --cell-bg-color: rgba(255, 255, 255, 0.7);
+    --selected-bg-color: rgba(224, 224, 224, 0.7);
+    --error-color: red;
+    --given-text-color: #333; /* For given numbers */
+}
+
+body.dark-theme {
+    --bg-color: #222;
+    --text-color: #f0f0f0;
+    --grid-border-color: #f0f0f0;
+    --cell-border-color: #666;
+    --cell-bg-color: rgba(51, 51, 51, 0.7);
+    --selected-bg-color: rgba(85, 85, 85, 0.7);
+    --error-color: #ff6666; /* Lighter red for dark theme */
+    --given-text-color: #bbb; /* Lighter for dark theme */
+}
+
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the top */
+    min-height: 100vh; /* Use min-height to allow content to push footer down */
+    margin: 0;
+    background-color: var(--bg-color); /* This will be the overlay color */
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    background-image: url('../assets/mythical-dragon-beast-anime-style.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keeps background fixed when scrolling */
+    position: relative; /* Needed for pseudo-element positioning */
+    z-index: 1; /* Ensure content is above pseudo-element */
+    padding: 20px; /* Add some padding around the content */
+    box-sizing: border-box; /* Include padding in height */
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color); /* Use theme background color for overlay */
+    opacity: 0.8; /* Adjust opacity for visibility of background image */
+    z-index: -1; /* Place behind content */
+}
+
+header {
+    width: 100%;
+    max-width: 500px; /* Match grid width or slightly wider */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--cell-bg-color); /* Semi-transparent background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: var(--text-color);
+}
+
+.game-controls {
+    display: flex;
+    gap: 10px; /* Space between buttons and timer */
+    margin-bottom: 0; /* Space below controls */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: center;
+}
+
+#theme-toggle,
+.game-controls button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--cell-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--grid-border-color);
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#timer {
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: var(--cell-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--grid-border-color);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(9, 50px);
+    border: 3px solid var(--grid-border-color);
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--cell-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background-color: var(--cell-bg-color);
+    transition: background-color 0.2s; /* Smooth transition for selection */
+}
+
+/* Thicker borders for 3x3 blocks */
+.cell[data-col="2"], .cell[data-col="5"] {
+    border-right: 3px solid var(--grid-border-color);
+}
+.cell[data-row="2"], .cell[data-row="5"] {
+    border-bottom: 3px solid var(--grid-border-color);
+}
+
+/* Ensure the last cells don't have extra borders */
+.cell[data-col="8"] {
+    border-right: 1px solid var(--cell-border-color);
+}
+.cell[data-row="8"] {
+    border-bottom: 1px solid var(--cell-border-color);
+}
+
+.cell.given {
+    color: var(--given-text-color);
+    font-weight: bold;
+}
+
+.cell.error input {
+    color: var(--error-color);
+    font-weight: bold;
+}
+
+.cell.selected {
+    background-color: var(--selected-bg-color);
+}
+.cell.selected input {
+    background-color: var(--selected-bg-color);
+}
+
+.cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 24px; /* Match parent cell font size */
+    background-color: transparent; /* Allow parent background to show */
+    box-sizing: border-box; /* Include padding/border in width/height */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    outline: none; /* Remove focus outline */
+    color: var(--text-color); /* Use text color variable */
+}
+
+.cell.hint-cell {
+    background-color: #d0e0ff;
+}
+
+.cell.hint-cell input {
+    color: #00008b;
+    font-weight: bold;
+}
+
+body.dark-theme .cell.hint-cell {
+    background-color: #304070;
+}
+
+body.dark-theme .cell.hint-cell input {
+    color: #add8e6;
+}
