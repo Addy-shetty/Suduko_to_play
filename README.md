@@ -2,8 +2,7 @@
 
 A classic Sudoku game built with HTML, CSS, and JavaScript. This project provides a clean and modern interface for playing Sudoku, with several features to enhance the user experience.
 
-![Sudoku To Play Screenshot](<placeholder_for_screenshot.png>)
-*(Please replace `<placeholder_for_screenshot.png>` with a screenshot of the game)*
+![Sudoku To Play Screenshot]([<placeholder_for_screenshot.png>](https://github.com/Addy-shetty/Suduko_to_play/blob/main/assets/Screenshot%202025-07-09%20155227.png))
 
 ## Features
 
